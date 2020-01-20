@@ -155,7 +155,7 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
 
     // We've run out of new nodes to explore and haven't found a path.
     std::cerr << "No path found!\n";
-    return std::vector<std::vector<State>>;
+    return std::vector<std::vector<State>>();
 }
 
 
