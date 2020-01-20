@@ -163,7 +163,7 @@ std::string CellString(State cell) {
     switch(cell) {
         case State::kObstacle: return "⛰️   ";
         case State::kPath:     return "🚗   ";
-        default:               return "0   ";
+        default:               return "0    ";
     }
 }
 
