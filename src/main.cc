@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iterator>
 
 enum class State {
     kEmpty,
@@ -168,10 +169,8 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
 
 
 void PrintBoard(const std::vector<std::vector<State>> & board) {
-    for (size_t i = 0; i < board.size(); i++) {
-        for (size_t j = 0; j < board[i].size(); j++) {
-            std::cout << board[i][j];
-        }
+    for (const auto & row : board) {
+        std::copy(row.begin(), row.end(), std::ostream_iterator<State>(std::cout, ""));
         std::cout << std::endl;
     }
 }
