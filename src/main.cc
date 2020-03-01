@@ -12,6 +12,14 @@ enum class State {
     kPath
 };
 
+std::ostream & operator<<(std::ostream & os, const State & cell) {
+    switch (cell) {
+        case State::kObstacle: return os << "⛰️   ";
+        case State::kPath:     return os << "🚗   ";
+        default:               return os << "0    ";
+    }
+}
+
 // directional deltas
 constexpr int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
@@ -159,19 +167,10 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
 }
 
 
-std::string CellString(State cell) {
-    switch(cell) {
-        case State::kObstacle: return "⛰️   ";
-        case State::kPath:     return "🚗   ";
-        default:               return "0    ";
-    }
-}
-
-
 void PrintBoard(const std::vector<std::vector<State>> & board) {
     for (size_t i = 0; i < board.size(); i++) {
         for (size_t j = 0; j < board[i].size(); j++) {
-            std::cout << CellString(board[i][j]);
+            std::cout << board[i][j];
         }
         std::cout << std::endl;
     }
