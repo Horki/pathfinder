@@ -15,5 +15,5 @@ add_subdirectory(test)
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()
 
-
 add_executable(${PROJECT_NAME} src/main.cc)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
