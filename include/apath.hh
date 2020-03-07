@@ -105,7 +105,7 @@ void AddToOpen(int x, int y, int g, int h,
 /**
  * Expand current nodes's neighbors and add them to the open list.
  */
-void ExpandNeighbors(const std::vector<int> & current, int goal[2],
+void ExpandNeighbors(const std::vector<int> & current, const std::pair<int, int> & goal,
                      std::vector<std::vector<int>> & openlist,
                      std::vector<std::vector<State>> & grid) {
     // Get current node's data.
@@ -122,7 +122,7 @@ void ExpandNeighbors(const std::vector<int> & current, int goal[2],
         if (CheckValidCell(x2, y2, grid)) {
             // Increment g value and add neighbor to open list.
             int g2 = g + 1;
-            int h2 = Heuristic(x2, y2, goal[0], goal[1]);
+            int h2 = Heuristic(x2, y2, goal.first, goal.second);
             AddToOpen(x2, y2, g2, h2, openlist, grid);
         }
     }
@@ -133,15 +133,16 @@ void ExpandNeighbors(const std::vector<int> & current, int goal[2],
  * Implementation of A* search algorithm
  */
 std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
-                                       int init[2], int goal[2]) {
+                                       const std::pair<int, int> & init,
+                                       const std::pair<int, int> & goal) {
     // Create the vector of open nodes.
     std::vector<std::vector<int>> open;
 
     // Initialize the starting node.
-    int x = init[0];
-    int y = init[1];
+    int x = init.first;
+    int y = init.second;
     int g = 0;
-    int h = Heuristic(x, y, goal[0],goal[1]);
+    int h = Heuristic(x, y, goal.first, goal.second);
     AddToOpen(x, y, g, h, open, grid);
 
     while (open.size() > 0) {
@@ -154,7 +155,7 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
         grid[x][y] = State::kPath;
 
         // Check if we're done.
-        if (x == goal[0] && y == goal[1]) {
+        if (x == goal.first && y == goal.second) {
             return grid;
         }
 
