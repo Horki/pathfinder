@@ -14,6 +14,9 @@ add_subdirectory(test)
 
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()
+add_library(a_star_lib OBJECT src/astar.cc)
+target_include_directories(a_star_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 add_executable(${PROJECT_NAME} src/main.cc)
+target_link_libraries(${PROJECT_NAME} a_star_lib)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)

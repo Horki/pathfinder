@@ -6,7 +6,7 @@ conan_basic_setup()
 
 add_executable(${PROJECT_NAME} test_a_star.cc)
 
-target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS} a_star_lib)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../include)
 
 add_test(
