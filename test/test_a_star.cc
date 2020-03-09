@@ -38,19 +38,20 @@ TEST(AStar, testAddToOpen) {
     ASSERT_EQ(solution_grid, grid);
 }
 
-//TEST(AStar, testSearch) {
-//    std::pair<int, int> goal = std::make_pair(4, 5);
-//    auto board = ReadBoardFile("../../../data/1.board");
+// TODO: fix test later
+TEST(DISABLED_AStar, testSearch) {
+    std::pair<int, int> goal = std::make_pair(4, 5);
+    auto board = ReadBoardFile("../../../data/1.board");
 //    std::cout.setstate(std::ios_base::failbit); // Disable cout
-//    auto output = Search(board, goal, goal);
 //    std::cout.clear(); // Enable cout
-//
-//    std::vector<std::vector<State>> solution {
-//        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
-//        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
-//        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
-//        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
-//        {State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty, State::kObstacle, State::kPath},
-//    };
-//    ASSERT_EQ(solution, output);
-//}
+    auto output = Search(board, goal, goal);
+
+    std::vector<std::vector<State>> solution {
+        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty, State::kObstacle, State::kPath},
+    };
+    ASSERT_EQ(solution, output);
+}
