@@ -55,3 +55,17 @@ TEST(DISABLED_AStar, testSearch) {
     };
     ASSERT_EQ(solution, output);
 }
+
+TEST(AStar, testValidCell) {
+    std::vector<std::vector<State>> grid {
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kClosed, State::kEmpty, State::kEmpty, State::kObstacle, State::kEmpty},
+    };
+    std::pair<int, int> point_1 = std::make_pair(0, 0);
+    std::pair<int, int> point_2 = std::make_pair(4, 2);
+    ASSERT_FALSE(CheckValidCell(point_1, grid));
+    ASSERT_TRUE(CheckValidCell(point_2, grid));
+}
