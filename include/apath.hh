@@ -36,7 +36,7 @@ int Heuristic(int x1, int y1, int x2, int y2);
 /**
  * Check that a cell is valid: on the grid, not an obstacle, and clear.
  */
-bool CheckValidCell(int x, int y, const std::vector<std::vector<State>> & grid);
+bool CheckValidCell(const std::pair<int, int> & point, const std::vector<std::vector<State>> & grid);
 
 /**
  * Add a node to the open list and mark it as open.
