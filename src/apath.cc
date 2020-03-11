@@ -13,6 +13,8 @@ std::ostream & operator<<(std::ostream & os, const State & cell) {
     switch (cell) {
         case State::kObstacle: return os << "⛰️   ";
         case State::kPath:     return os << "🚗   ";
+        case State::kStart:    return os << "🚦   ";
+        case State::kFinish:   return os << "🏁   ";
         default:               return os << "0    ";
     }
 }
@@ -151,6 +153,8 @@ state_matrix Search(state_matrix & grid,
 
         // Check if we're done.
         if (x == goal.first && y == goal.second) {
+            grid[init.first][init.second] = State::kStart;
+            grid[goal.first][goal.second] = State::kFinish;
             return grid;
         }
 

@@ -8,7 +8,9 @@ enum class State {
     kEmpty,
     kObstacle,
     kClosed,
-    kPath
+    kPath,
+    kStart,
+    kFinish,
 };
 
 using matrix_point = std::pair<int, int>;
