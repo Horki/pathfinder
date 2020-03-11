@@ -69,3 +69,27 @@ TEST(AStar, testValidCell) {
     ASSERT_FALSE(CheckValidCell(point_1, grid));
     ASSERT_TRUE(CheckValidCell(point_2, grid));
 }
+
+TEST(AStar, testExpandNeighbors) {
+    std::vector<int> current{4, 2, 7, 3};
+    matrix_point goal = std::make_pair(4, 5);
+    std::vector<std::vector<int>> open{{4, 2, 7, 3}};
+    std::vector<std::vector<int>> solution_open = open; // copy
+    solution_open.push_back(std::vector<int>{3, 2, 8, 4});
+    solution_open.push_back(std::vector<int>{4, 3, 8, 2});
+    state_matrix grid{
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
+        {State::kClosed, State::kClosed, State::kEmpty, State::kEmpty, State::kObstacle, State::kEmpty}
+    };
+    state_matrix solution_grid = grid;
+    solution_grid[3][2] = State::kClosed;
+    solution_grid[4][3] = State::kClosed;
+    ExpandNeighbors(current, goal, open, grid);
+    CellSort(&open);
+    CellSort(&solution_open);
+    ASSERT_EQ(solution_open, open);
+    ASSERT_EQ(solution_grid, grid);
+}
