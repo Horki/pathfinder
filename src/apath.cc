@@ -33,9 +33,9 @@ std::vector<State> ParseLine(const std::string & line) {
 }
 
 
-std::vector<std::vector<State>> ReadBoardFile(const std::string & path) {
+state_matrix ReadBoardFile(const std::string & path) {
     std::ifstream myfile(path);
-    std::vector<std::vector<State>> board;
+    state_matrix board;
     if (myfile) {
         std::string line;
         while (getline(myfile, line)) {
@@ -74,7 +74,7 @@ int Heuristic(int x1, int y1, int x2, int y2) {
 /**
  * Check that a cell is valid: on the grid, not an obstacle, and clear.
  */
-bool CheckValidCell(const std::pair<int, int> & point, const std::vector<std::vector<State>> & grid) {
+bool CheckValidCell(const matrix_point & point, const state_matrix & grid) {
     bool on_grid_x = (point.first >= 0 && point.first < grid.size());
     bool on_grid_y = (point.second >= 0 && point.second < grid[0].size());
     if (on_grid_x && on_grid_y) {
@@ -89,7 +89,7 @@ bool CheckValidCell(const std::pair<int, int> & point, const std::vector<std::ve
  */
 void AddToOpen(int x, int y, int g, int h,
                std::vector<std::vector<int>> & openlist,
-               std::vector<std::vector<State>> & grid) {
+               state_matrix & grid) {
     // Add node to open vector, and mark grid cell as closed.
     openlist.push_back(std::vector<int>{x, y, g, h});
     grid[x][y] = State::kClosed;
@@ -99,9 +99,9 @@ void AddToOpen(int x, int y, int g, int h,
 /**
  * Expand current nodes's neighbors and add them to the open list.
  */
-void ExpandNeighbors(const std::vector<int> & current, const std::pair<int, int> & goal,
+void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal,
                      std::vector<std::vector<int>> & openlist,
-                     std::vector<std::vector<State>> & grid) {
+                     state_matrix & grid) {
     // Get current node's data.
     int x = current[0];
     int y = current[1];
@@ -111,7 +111,7 @@ void ExpandNeighbors(const std::vector<int> & current, const std::pair<int, int>
     for (size_t i = 0; i < 4; ++i) {
         int x2 = x + delta[i][0];
         int y2 = y + delta[i][1];
-        std::pair<int, int> point = std::make_pair(x2, y2);
+        matrix_point point = std::make_pair(x2, y2);
 
         // Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
         if (CheckValidCell(point, grid)) {
@@ -127,9 +127,9 @@ void ExpandNeighbors(const std::vector<int> & current, const std::pair<int, int>
 /**
  * Implementation of A* search algorithm
  */
-std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
-                                       const std::pair<int, int> & init,
-                                       const std::pair<int, int> & goal) {
+state_matrix Search(state_matrix & grid,
+                    const matrix_point & init,
+                    const matrix_point & goal) {
     // Create the vector of open nodes.
     std::vector<std::vector<int>> open;
 
@@ -160,11 +160,11 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>> & grid,
 
     // We've run out of new nodes to explore and haven't found a path.
     std::cerr << "No path found!\n";
-    return std::vector<std::vector<State>>();
+    return state_matrix();
 }
 
 
-void PrintBoard(const std::vector<std::vector<State>> & board) {
+void PrintBoard(const state_matrix & board) {
     for (const auto & row : board) {
         std::copy(row.begin(), row.end(), std::ostream_iterator<State>(std::cout, ""));
         std::cout << std::endl;

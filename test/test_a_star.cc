@@ -24,14 +24,14 @@ TEST(AStar, testAddToOpen) {
     std::vector<std::vector<int>> open{{0, 0, 2, 9}, {1, 0, 2, 2}, {2, 0, 2, 4}};
     std::vector<std::vector<int>> solution_open = open; // copy
     solution_open.push_back(std::vector<int>{3, 0, 5, 7});
-    std::vector<std::vector<State>> grid {
+    state_matrix grid {
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty, State::kObstacle, State::kEmpty},
     };
-    std::vector<std::vector<State>> solution_grid = grid; // copy
+    state_matrix solution_grid = grid; // copy
     solution_grid[3][0] = State::kClosed;
     AddToOpen(x, y, g, h, open, grid);
     ASSERT_EQ(solution_open, open);
@@ -40,13 +40,13 @@ TEST(AStar, testAddToOpen) {
 
 // TODO: fix test later
 TEST(DISABLED_AStar, testSearch) {
-    std::pair<int, int> goal = std::make_pair(4, 5);
+    matrix_point goal = std::make_pair(4, 5);
     auto board = ReadBoardFile("../../../data/1.board");
 //    std::cout.setstate(std::ios_base::failbit); // Disable cout
 //    std::cout.clear(); // Enable cout
     auto output = Search(board, goal, goal);
 
-    std::vector<std::vector<State>> solution {
+    state_matrix solution {
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
@@ -57,15 +57,15 @@ TEST(DISABLED_AStar, testSearch) {
 }
 
 TEST(AStar, testValidCell) {
-    std::vector<std::vector<State>> grid {
+    state_matrix grid {
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kClosed, State::kClosed, State::kEmpty, State::kEmpty, State::kObstacle, State::kEmpty},
     };
-    std::pair<int, int> point_1 = std::make_pair(0, 0);
-    std::pair<int, int> point_2 = std::make_pair(4, 2);
+    matrix_point point_1 = std::make_pair(0, 0);
+    matrix_point point_2 = std::make_pair(4, 2);
     ASSERT_FALSE(CheckValidCell(point_1, grid));
     ASSERT_TRUE(CheckValidCell(point_2, grid));
 }
