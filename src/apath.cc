@@ -72,6 +72,10 @@ int Heuristic(int x1, int y1, int x2, int y2) {
     return std::abs(x2 - x1) + std::abs(y2 - y1);
 }
 
+int Heuristic(const matrix_point & point_x, const matrix_point & point_y) {
+    return Heuristic(point_x.first, point_y.first, point_x.second, point_y.second);
+}
+
 
 /**
  * Check that a cell is valid: on the grid, not an obstacle, and clear.
@@ -129,7 +133,7 @@ void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal
 /**
  * Implementation of A* search algorithm
  */
-state_matrix Search(state_matrix & grid,
+void Search(state_matrix & grid,
                     const matrix_point & init,
                     const matrix_point & goal) {
     // Create the vector of open nodes.
@@ -139,7 +143,7 @@ state_matrix Search(state_matrix & grid,
     int x = init.first;
     int y = init.second;
     int g = 0;
-    int h = Heuristic(x, y, goal.first, goal.second);
+    int h = Heuristic(init, goal);
     AddToOpen(x, y, g, h, open, grid);
 
     while (open.size() > 0) {
@@ -152,10 +156,10 @@ state_matrix Search(state_matrix & grid,
         grid[x][y] = State::kPath;
 
         // Check if we're done.
-        if (x == goal.first && y == goal.second) {
+        if (x == int(goal.first) && y == int(goal.second)) {
             grid[init.first][init.second] = State::kStart;
             grid[goal.first][goal.second] = State::kFinish;
-            return grid;
+            return;
         }
 
         // If we're not done, expand search to current node's neighbors.
@@ -164,7 +168,6 @@ state_matrix Search(state_matrix & grid,
 
     // We've run out of new nodes to explore and haven't found a path.
     std::cerr << "No path found!\n";
-    return state_matrix();
 }
 
 

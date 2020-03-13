@@ -13,7 +13,7 @@ enum class State {
     kFinish,
 };
 
-using matrix_point = std::pair<int, int>;
+using matrix_point = std::pair<unsigned, unsigned>;
 using state_matrix = std::vector<std::vector<State>>;
 
 // directional deltas
@@ -37,6 +37,7 @@ void CellSort(std::vector<std::vector<int>> * v);
 
 // Calculate the manhattan distance
 int Heuristic(int x1, int y1, int x2, int y2);
+int Heuristic(const matrix_point & point_x, const matrix_point & point_y);
 
 /**
  * Check that a cell is valid: on the grid, not an obstacle, and clear.
@@ -62,9 +63,9 @@ void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal
 /**
  * Implementation of A* search algorithm
  */
-state_matrix Search(state_matrix & grid,
-                    const matrix_point & init,
-                    const matrix_point & goal);
+void Search(state_matrix & grid,
+            const matrix_point & init,
+            const matrix_point & goal);
 
 void PrintBoard(const state_matrix & board);
 

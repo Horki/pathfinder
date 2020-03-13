@@ -44,7 +44,7 @@ TEST(DISABLED_AStar, testSearch) {
     auto board = ReadBoardFile("../../../data/1.board");
 //    std::cout.setstate(std::ios_base::failbit); // Disable cout
 //    std::cout.clear(); // Enable cout
-    auto output = Search(board, goal, goal);
+    Search(board, goal, goal);
 
     state_matrix solution {
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
@@ -53,7 +53,7 @@ TEST(DISABLED_AStar, testSearch) {
         {State::kEmpty, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
         {State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty, State::kObstacle, State::kPath},
     };
-    ASSERT_EQ(solution, output);
+    ASSERT_EQ(solution, board);
 }
 
 TEST(AStar, testValidCell) {
