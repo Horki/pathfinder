@@ -63,7 +63,7 @@ void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal
 /**
  * Implementation of A* search algorithm
  */
-void Search(state_matrix & grid,
+bool Search(state_matrix & grid,
             const matrix_point & init,
             const matrix_point & goal);
 

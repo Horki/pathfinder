@@ -5,6 +5,7 @@ int main() {
     matrix_point goal = std::make_pair(4, 5);
     auto board = ReadBoardFile("../data/1.board");
     PrintBoard(board);
-    Search(board, init, goal);
-    PrintBoard(board);
+    if (Search(board, init, goal)) {
+      PrintBoard(board);
+    }
 }

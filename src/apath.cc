@@ -133,7 +133,7 @@ void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal
 /**
  * Implementation of A* search algorithm
  */
-void Search(state_matrix & grid,
+bool Search(state_matrix & grid,
                     const matrix_point & init,
                     const matrix_point & goal) {
     // Create the vector of open nodes.
@@ -159,7 +159,7 @@ void Search(state_matrix & grid,
         if (x == int(goal.first) && y == int(goal.second)) {
             grid[init.first][init.second] = State::kStart;
             grid[goal.first][goal.second] = State::kFinish;
-            return;
+            return true;
         }
 
         // If we're not done, expand search to current node's neighbors.
@@ -168,6 +168,7 @@ void Search(state_matrix & grid,
 
     // We've run out of new nodes to explore and haven't found a path.
     std::cerr << "No path found!\n";
+    return false;
 }
 
 
