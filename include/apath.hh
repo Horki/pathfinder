@@ -15,6 +15,7 @@ enum class State {
 
 using matrix_point = std::pair<unsigned, unsigned>;
 using state_matrix = std::vector<std::vector<State>>;
+using cells_matrix = std::vector<std::vector<int>>;
 
 // directional deltas
 constexpr int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
@@ -33,7 +34,7 @@ bool Compare(const std::vector<int> & a, const std::vector<int> & b);
 /**
  * Sort the two-dimensional vector of ints in descending order.
  */
-void CellSort(std::vector<std::vector<int>> * v);
+void CellSort(cells_matrix * v);
 
 // Calculate the manhattan distance
 int Heuristic(int x1, int y1, int x2, int y2);
@@ -48,7 +49,7 @@ bool CheckValidCell(const matrix_point & point, const state_matrix & grid);
  * Add a node to the open list and mark it as open.
  */
 void AddToOpen(int x, int y, int g, int h,
-               std::vector<std::vector<int>> & openlist,
+               cells_matrix & openlist,
                state_matrix & grid);
 
 
@@ -56,7 +57,7 @@ void AddToOpen(int x, int y, int g, int h,
  * Expand current nodes's neighbors and add them to the open list.
  */
 void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal,
-                     std::vector<std::vector<int>> & openlist,
+                     cells_matrix & openlist,
                      state_matrix & grid);
 
 

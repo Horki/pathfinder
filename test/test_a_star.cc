@@ -21,8 +21,8 @@ TEST(AStar, testAddToOpen) {
     int y = 0;
     int g = 5;
     int h = 7;
-    std::vector<std::vector<int>> open{{0, 0, 2, 9}, {1, 0, 2, 2}, {2, 0, 2, 4}};
-    std::vector<std::vector<int>> solution_open = open; // copy
+    cells_matrix open{{0, 0, 2, 9}, {1, 0, 2, 2}, {2, 0, 2, 4}};
+    cells_matrix solution_open = open; // copy
     solution_open.push_back(std::vector<int>{3, 0, 5, 7});
     state_matrix grid {
         {State::kClosed, State::kObstacle, State::kEmpty, State::kEmpty, State::kEmpty, State::kEmpty},
@@ -74,8 +74,8 @@ TEST(AStar, testValidCell) {
 TEST(AStar, testExpandNeighbors) {
     std::vector<int> current{4, 2, 7, 3};
     matrix_point goal = std::make_pair(4, 5);
-    std::vector<std::vector<int>> open{{4, 2, 7, 3}};
-    std::vector<std::vector<int>> solution_open = open; // copy
+    cells_matrix open{{4, 2, 7, 3}};
+    cells_matrix solution_open = open; // copy
     solution_open.push_back(std::vector<int>{3, 2, 8, 4});
     solution_open.push_back(std::vector<int>{4, 3, 8, 2});
     state_matrix grid{

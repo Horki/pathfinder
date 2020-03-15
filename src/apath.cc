@@ -62,7 +62,7 @@ bool Compare(const std::vector<int> & a, const std::vector<int> & b) {
 /**
  * Sort the two-dimensional vector of ints in descending order.
  */
-void CellSort(std::vector<std::vector<int>> * v) {
+void CellSort(cells_matrix * v) {
     std::sort(v->begin(), v->end(), Compare);
 }
 
@@ -94,7 +94,7 @@ bool CheckValidCell(const matrix_point & point, const state_matrix & grid) {
  * Add a node to the open list and mark it as open.
  */
 void AddToOpen(int x, int y, int g, int h,
-               std::vector<std::vector<int>> & openlist,
+               cells_matrix & openlist,
                state_matrix & grid) {
     // Add node to open vector, and mark grid cell as closed.
     openlist.push_back(std::vector<int>{x, y, g, h});
@@ -106,7 +106,7 @@ void AddToOpen(int x, int y, int g, int h,
  * Expand current nodes's neighbors and add them to the open list.
  */
 void ExpandNeighbors(const std::vector<int> & current, const matrix_point & goal,
-                     std::vector<std::vector<int>> & openlist,
+                     cells_matrix & openlist,
                      state_matrix & grid) {
     // Get current node's data.
     int x = current[0];
@@ -137,7 +137,7 @@ bool Search(state_matrix & grid,
                     const matrix_point & init,
                     const matrix_point & goal) {
     // Create the vector of open nodes.
-    std::vector<std::vector<int>> open;
+    cells_matrix open;
 
     // Initialize the starting node.
     int x = init.first;
